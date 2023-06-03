@@ -13,7 +13,7 @@ struct ContentView: View {
     @State private var score = 0
     @State private var countries = ["Estonia","France","Germany","Ireland","Italy","Nigeria","Poland","Russia","Spain","UK","US"].shuffled()
     @State private var correctAnswer = Int.random(in: 0...2)
-    @State private var questionFinal = 0
+    @State private var questionFinal = 1
     @State private var showingFinal = false
     
     var body: some View {
@@ -74,6 +74,7 @@ struct ContentView: View {
         }message: {
             Text("Your score is \(score)")
         }
+        
         .alert("Done", isPresented: $showingFinal){
             Button("Restart", action: restart)
         }message: {
@@ -81,12 +82,7 @@ struct ContentView: View {
         }
         
     }
-    func restart (){
-        score = 0
-        questionFinal = 0
-        countries.shuffle()
-        correctAnswer = Int.random(in: 0...2)
-    }
+  
     func flagTapped(_ number:Int){
         if number == correctAnswer{
             scoreTitle = "Correct"
@@ -107,6 +103,13 @@ struct ContentView: View {
     }
     
     func askQuestion(){
+        countries.shuffle()
+        correctAnswer = Int.random(in: 0...2)
+    }
+    
+    func restart (){
+        score = 0
+        questionFinal = 1
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
     }
