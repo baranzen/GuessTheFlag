@@ -70,18 +70,23 @@ struct ContentView: View {
             
         }
         .alert("Wrong! That’s the flag of \(countries[correctAnswer])",isPresented: $showingScore){
-            Button("Continue",action: askQuestion)
+            Button("Continue",action: restart)
         }message: {
             Text("Your score is \(score)")
         }
         .alert("Done", isPresented: $showingFinal){
-            Button("Restart", action: askQuestion)
+            Button("Restart", action: restart)
         }message: {
             Text("game has done!")
         }
         
     }
-    
+    func restart (){
+        score = 0
+        questionFinal = 0
+        countries.shuffle()
+        correctAnswer = Int.random(in: 0...2)
+    }
     func flagTapped(_ number:Int){
         if number == correctAnswer{
             scoreTitle = "Correct"
