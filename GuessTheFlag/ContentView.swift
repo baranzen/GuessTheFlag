@@ -13,6 +13,8 @@ struct ContentView: View {
     @State private var score = 0
     @State private var countries = ["Estonia","France","Germany","Ireland","Italy","Nigeria","Poland","Russia","Spain","UK","US"].shuffled()
     @State private var correctAnswer = Int.random(in: 0...2)
+    @State private var questionFinal = 0
+    @State private var showingFinal = false
     
     var body: some View {
         ZStack{
@@ -27,7 +29,7 @@ struct ContentView: View {
                 Text("Guess the flag")
                     .font(.largeTitle.weight(.bold))
                     .foregroundColor(Color("color2"))
-                    .shadow(radius: 0.7)
+                
                 
                 VStack (spacing: 30){
                     VStack{
@@ -67,10 +69,15 @@ struct ContentView: View {
             
             
         }
-        .alert(scoreTitle,isPresented: $showingScore){
+        .alert("Wrong! That’s the flag of \(countries[correctAnswer])",isPresented: $showingScore){
             Button("Continue",action: askQuestion)
         }message: {
             Text("Your score is \(score)")
+        }
+        .alert("Done", isPresented: $showingFinal){
+            Button("Restart", action: askQuestion)
+        }message: {
+            Text("game has done!")
         }
         
     }
@@ -83,6 +90,13 @@ struct ContentView: View {
         }else{
             scoreTitle = "Wrong"
             showingScore = true
+        }
+        
+        if questionFinal==8{
+            showingFinal = true
+        }
+        else{
+            questionFinal+=1
         }
         
     }
