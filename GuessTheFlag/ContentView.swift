@@ -44,10 +44,7 @@ struct ContentView: View {
                         Button{
                             flagTapped(number)
                         }label:{
-                            Image(countries[number])
-                                .renderingMode(.original)
-                                .clipShape(Capsule())
-                                .shadow(radius: 5)
+                          FlagImage(number: countries[number])
                         }
                         
                     }
@@ -82,7 +79,16 @@ struct ContentView: View {
         }
         
     }
-  
+    struct FlagImage:View{
+        let number: String
+        var body: some View{
+            Image(number)
+                .renderingMode(.original)
+                .clipShape(Capsule())
+                .shadow(radius: 5)
+        }
+    }
+    
     func flagTapped(_ number:Int){
         if number == correctAnswer{
             scoreTitle = "Correct"
