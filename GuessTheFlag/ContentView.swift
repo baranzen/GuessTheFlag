@@ -29,6 +29,7 @@ struct ContentView: View {
                 Text("Guess the flag")
                     .font(.largeTitle.weight(.bold))
                     .foregroundColor(Color("color2"))
+                    .challengeStyle()
                 
                 
                 VStack (spacing: 30){
@@ -79,15 +80,10 @@ struct ContentView: View {
         }
         
     }
-    struct FlagImage:View{
-        let number: String
-        var body: some View{
-            Image(number)
-                .renderingMode(.original)
-                .clipShape(Capsule())
-                .shadow(radius: 5)
-        }
-    }
+    
+    
+   
+    
     
     func flagTapped(_ number:Int){
         if number == correctAnswer{
@@ -121,8 +117,33 @@ struct ContentView: View {
     }
 }
 
+struct FlagImage:View{
+    let number: String
+    var body: some View{
+        Image(number)
+            .renderingMode(.original)
+            .clipShape(Capsule())
+            .shadow(radius: 5)
+    }
+}
+
+
+struct Title: ViewModifier{
+    func body(content: Content) -> some View {
+        content
+            .font(.largeTitle)
+    }
+}
+
+extension View{
+    func challengeStyle() -> some View{
+        modifier(Title())
+    }
+}
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
 }
+
